@@ -18,7 +18,7 @@ This is **not** Entra ID, Okta, Windows AD basics, or CyberKy/LLDAP. Those live 
 | 6 | CPM rotation: failed winRc 2245, fixed MinPasswordAge 0, rotated → Compliant | Done (Oct 2026) |
 | 7 | PSM monitored session to WIN-ADDC (Tickets 1002/1003), recorded, activities logged | Done (Oct 2026) |
 | 8 | Remove jdoe from Lab-Admins | Done (Oct 2026) |
-| 9 | VM snapshot **PAM-loop-complete-2026-10-12** | Done (Oct 2026) |
+| 9 | All 5 VMs snapshotted as **PAM-loop-complete-2026-10-12** | Done (Oct 2026) |
 
 ## Environment
 
@@ -32,99 +32,53 @@ This is **not** Entra ID, Okta, Windows AD basics, or CyberKy/LLDAP. Those live 
 | WIN-PVWA | 192.168.100.13 — Password Vault Web Access (`https://win-pvwa.pitythefool.com/PasswordVault`) |
 | WIN-PSM | 192.168.100.14 — Privileged Session Manager |
 | Target account | `svc-test` (Domain Admins), platform WinDomain, safe **Lab-Admins** |
+| Snapshots | All 5 VMs: `PAM-loop-complete-2026-10-12` |
 | Requester | `jdoe` (EPVUser, created via REST API) |
 | Approver | `mgr1` (Lab-Admins member with approve rights) |
 
 ## Screenshots
 
-Each shot has a hand-drawn oval on the thing I clicked or the result that matters. Links go to the annotated copies; the untouched originals are in `screenshots/` with the same filenames.
+Ten hero shots, one per loop step. Each has a loose hand-drawn oval on the thing I clicked or the result that matters. All untouched originals are in [`proof/`](proof/) (index at the bottom).
 
-Two shots are left out on purpose because they show plaintext passwords: `27-jdoe-created-via-rest-api` (REST call with the admin password and jdoe's initial password on screen) and `35-grant-password-shown` (the revealed svc-test password). The REST output for jdoe and the grant itself are still covered by 28 and 34.
+### 1. Onboard: svc-test (Domain Admins) in Lab-Admins, WinDomain platform
 
-### Build: VMware, 5 VMs, domain, installs
+![1. Onboard: svc-test (Domain Admins) in Lab-Admins, WinDomain platform](hero/26-svc-test-onboarded.png)
 
-- [installers downloaded](screenshots/annotated/01-installers-downloaded.png)
-- [vmware official download](screenshots/annotated/02-vmware-official-download.png)
-- [vmware installed](screenshots/annotated/03-vmware-installed.png)
-- [base vm loaded](screenshots/annotated/04-base-vm-loaded.png)
-- [base vm logged in](screenshots/annotated/05-base-vm-logged-in.png)
-- [five vms cloned](screenshots/annotated/06-five-vms-cloned.png)
-- [win addc configured](screenshots/annotated/07-win-addc-configured.png)
-- [win cpm demoted renamed](screenshots/annotated/08-win-cpm-demoted-renamed.png)
-- [win pvwa demoted renamed](screenshots/annotated/09-win-pvwa-demoted-renamed.png)
-- [win psm demoted renamed](screenshots/annotated/10-win-psm-demoted-renamed.png)
-- [win vault demoted renamed](screenshots/annotated/11-win-vault-demoted-renamed.png)
-- [win cpm domain join](screenshots/annotated/12-win-cpm-domain-join.png)
-- [win pvwa domain](screenshots/annotated/13-win-pvwa-domain.png)
-- [win psm after join](screenshots/annotated/14-win-psm-after-join.png)
-- [win addc running](screenshots/annotated/15-win-addc-running.png)
-- [ping tests](screenshots/annotated/16-ping-tests.png)
-- [vault setup complete](screenshots/annotated/17-vault-setup-complete.png)
-- [cpm cpmem038e platform import warning](screenshots/annotated/18-cpm-cpmem038e-platform-import-warning.png)
-- [cpm install complete](screenshots/annotated/19-cpm-install-complete.png)
-- [pvwa login page](screenshots/annotated/20-pvwa-login-page.png)
-- [pvwa signed in account view](screenshots/annotated/21-pvwa-signed-in-account-view.png)
-- [platforms loaded](screenshots/annotated/22-platforms-loaded.png)
-- [psm install complete](screenshots/annotated/23-psm-install-complete.png)
+### 3. Master Policy: dual control active
 
-### 1. Onboard svc-test into Lab-Admins (WinDomain)
+![3. Master Policy: dual control active](hero/29-master-policy-dual-control-active.png)
 
-- [svc test created](screenshots/annotated/24-svc-test-created.png)
-- [safe lab admins created](screenshots/annotated/25-safe-lab-admins-created.png)
-- [svc test onboarded](screenshots/annotated/26-svc-test-onboarded.png)
+### 4a. jdoe requests svc-test with Ticket 1001
 
-### 2. Users via REST API: jdoe requester, mgr1 approver
+![4a. jdoe requests svc-test with Ticket 1001](hero/30-jdoe-request-form.png)
 
-- [mgr1 approver added](screenshots/annotated/28-mgr1-approver-added.png)
+### 4b. mgr1 confirms the request
 
-### 3. Master Policy: dual control
+![4b. mgr1 confirms the request](hero/33-request-approved.png)
 
-- [master policy dual control active](screenshots/annotated/29-master-policy-dual-control-active.png)
+### 5. CPM rotated the password → Compliant
 
-### 4. Request → approve → grant (Ticket 1001)
+![5. CPM rotated the password → Compliant](hero/39-cpm-rotation-compliant.png)
 
-- [jdoe request form](screenshots/annotated/30-jdoe-request-form.png)
-- [request sent pending](screenshots/annotated/31-request-sent-pending.png)
-- [mgr1 incoming request](screenshots/annotated/32-mgr1-incoming-request.png)
-- [request approved](screenshots/annotated/33-request-approved.png)
-- [jdoe confirmed audit trail](screenshots/annotated/34-jdoe-confirmed-audit-trail.png)
+### 6a. PSM: "You are being recorded"
 
-### 5. CPM rotation: fail 2245 → fix → Compliant
+![6a. PSM: "You are being recorded"](hero/49-psm-session-being-recorded.png)
 
-- [cpm change failed 2245](screenshots/annotated/36-cpm-change-failed-2245.png)
-- [min password age 0 gpupdate](screenshots/annotated/37-min-password-age-0-gpupdate.png)
-- [cpm change dialog](screenshots/annotated/38-cpm-change-dialog.png)
-- [cpm rotation compliant](screenshots/annotated/39-cpm-rotation-compliant.png)
+### 6b. PSM session on WIN-ADDC
 
-### 6. PSM monitored session (Tickets 1002/1003)
+![6b. PSM session on WIN-ADDC](hero/51-psm-session-on-addc.png)
 
-- [psm service running](screenshots/annotated/40-psm-service-running.png)
-- [ticket1002 request sent](screenshots/annotated/41-ticket1002-request-sent.png)
-- [mgr1 incoming ticket1002](screenshots/annotated/42-mgr1-incoming-ticket1002.png)
-- [mgr1 approve reason](screenshots/annotated/43-mgr1-approve-reason.png)
-- [ticket1002 confirmed](screenshots/annotated/44-ticket1002-confirmed.png)
-- [jdoe confirmed connect gray](screenshots/annotated/45-jdoe-confirmed-connect-gray.png)
-- [master policy psm monitoring active](screenshots/annotated/46-master-policy-psm-monitoring-active.png)
-- [jdoe connect enabled](screenshots/annotated/47-jdoe-connect-enabled.png)
-- [psm server address fixed](screenshots/annotated/48-psm-server-address-fixed.png)
-- [psm session being recorded](screenshots/annotated/49-psm-session-being-recorded.png)
-- [psm reached addc secure error](screenshots/annotated/50-psm-reached-addc-secure-error.png)
-- [psm session on addc](screenshots/annotated/51-psm-session-on-addc.png)
-- [psm session activity notepad](screenshots/annotated/52-psm-session-activity-notepad.png)
-- [psm activity window titles disconnect](screenshots/annotated/53-psm-activity-window-titles-disconnect.png)
-- [activity ticket1003 connect approval](screenshots/annotated/54-activity-ticket1003-connect-approval.png)
-- [activity psm connect window titles](screenshots/annotated/55-activity-psm-connect-window-titles.png)
-- [activity notepad psm disconnect](screenshots/annotated/56-activity-notepad-psm-disconnect.png)
+### 6c. Activities: window title (notepad.exe) + PSM Disconnect
 
-### 7. Remove jdoe from Lab-Admins
+![6c. Activities: window title (notepad.exe) + PSM Disconnect](hero/56-activity-notepad-psm-disconnect.png)
 
-- [remove jdoe menu](screenshots/annotated/57-remove-jdoe-menu.png)
-- [remove jdoe confirm](screenshots/annotated/58-remove-jdoe-confirm.png)
-- [jdoe removed from lab admins](screenshots/annotated/59-jdoe-removed-from-lab-admins.png)
+### 7. jdoe removed from Lab-Admins
 
-### 8. Snapshot
+![7. jdoe removed from Lab-Admins](hero/59-jdoe-removed-from-lab-admins.png)
 
-- [addc snapshot taken](screenshots/annotated/60-addc-snapshot-taken.png)
+### 8. Snapshot PAM-loop-complete-2026-10-12
+
+![8. Snapshot PAM-loop-complete-2026-10-12](hero/60-addc-snapshot-taken.png)
 
 ## What was built
 
@@ -137,7 +91,7 @@ Two shots are left out on purpose because they show plaintext passwords: `27-jdo
 - Ran the full request loop: jdoe asks with a reason, mgr1 confirms, jdoe gets access, the audit trail shows both sides.
 - Had CPM change the password. It failed once, I fixed the domain policy, and it rotated to Compliant.
 - Turned on session monitoring, fixed the PSM server address, and connected through PSM to WIN-ADDC. The session showed "You are being recorded", and the account's Activities logged PSM Connect, window titles (notepad.exe, explorer.exe), and PSM Disconnect.
-- Removed jdoe from Lab-Admins and took a snapshot.
+- Removed jdoe from Lab-Admins and snapshotted all 5 VMs.
 
 ## How to redo it
 
@@ -151,7 +105,7 @@ Two shots are left out on purpose because they show plaintext passwords: `27-jdo
 8. On the DC, set `MinPasswordAge 0` and `gpupdate /force`. In PVWA, Change → let CPM rotate; confirm Compliant.
 9. Master Policy → Session Management → **Require privileged session monitoring and isolation** = Active. Set the PSM server Address to `192.168.100.14`. Make sure RDP is on at the target and PSM's RDP security settings match.
 10. As jdoe (after approval), Connect. Do something in the session (notepad), disconnect, check Activities.
-11. Safes → Lab-Admins → Members → jdoe → Remove. Snapshot.
+11. Safes → Lab-Admins → Members → jdoe → Remove. Snapshot all 5 VMs.
 
 ## Issues I fixed
 
@@ -161,7 +115,7 @@ Two shots are left out on purpose because they show plaintext passwords: `27-jdo
 - **"Privileged session could not be established securely."** Cause: RDP security on PSM (NLA / SecurityLayer) didn't line up with the connection. Fix: adjusted NLA / SecurityLayer on WIN-PSM.
 - **Session couldn't reach the DC.** Cause: Remote Desktop was off on WIN-ADDC. Fix: enabled RDP on WIN-ADDC.
 
-Gaps in the screenshots: there's no shot of the PSM address *before* (NAT IP), of the NLA/SecurityLayer change, or of RDP being enabled on ADDC. Those fixes are written from my notes; the screenshots show the after state (48 address = .14, 49–51 working session).
+Gaps in the screenshots: there's no shot of the PSM address *before* (NAT IP), of the NLA/SecurityLayer change, or of RDP being enabled on ADDC. Those fixes are written from my notes; the screenshots show the after state (proof 48 address = .14, 49–51 working session).
 
 ## Demo walkthrough
 
@@ -171,6 +125,73 @@ Gaps in the screenshots: there's no shot of the PSM address *before* (NAT IP), o
 4. Walk Ticket 1001: jdoe asks (30–31), mgr1 approves (32–33), jdoe is confirmed (34).
 5. Show the 2245 failure, the policy fix, and Compliant (36–39).
 6. Walk Ticket 1002/1003: approval, Connect enabled, "You are being recorded", session on ADDC, Activities with window titles and PSM Disconnect (41–56).
-7. Remove jdoe (57–59).
+7. Remove jdoe (57–59), then show the snapshots on all 5 VMs (60–64).
 
 In ticket language: *Requester jdoe asked for temporary access to the Domain Admin account svc-test with a ticket number. Approver mgr1 confirmed it, so no one approved their own access. The password was never handed out long-term: CPM rotates it, and the admin session ran through PSM where it was recorded and every window was logged. When the work was done, jdoe was removed from the safe and lost access.*
+
+## Proof index
+
+All originals, unedited. 27 and 35 are left out because they show plaintext passwords (REST call with credentials; revealed svc-test password).
+
+- [01 installers downloaded](proof/01-installers-downloaded.png)
+- [02 vmware official download](proof/02-vmware-official-download.png)
+- [03 vmware installed](proof/03-vmware-installed.png)
+- [04 base vm loaded](proof/04-base-vm-loaded.png)
+- [05 base vm logged in](proof/05-base-vm-logged-in.png)
+- [06 five vms cloned](proof/06-five-vms-cloned.png)
+- [07 win addc configured](proof/07-win-addc-configured.png)
+- [08 win cpm demoted renamed](proof/08-win-cpm-demoted-renamed.png)
+- [09 win pvwa demoted renamed](proof/09-win-pvwa-demoted-renamed.png)
+- [10 win psm demoted renamed](proof/10-win-psm-demoted-renamed.png)
+- [11 win vault demoted renamed](proof/11-win-vault-demoted-renamed.png)
+- [12 win cpm domain join](proof/12-win-cpm-domain-join.png)
+- [13 win pvwa domain](proof/13-win-pvwa-domain.png)
+- [14 win psm after join](proof/14-win-psm-after-join.png)
+- [15 win addc running](proof/15-win-addc-running.png)
+- [16 ping tests](proof/16-ping-tests.png)
+- [17 vault setup complete](proof/17-vault-setup-complete.png)
+- [18 cpm cpmem038e platform import warning](proof/18-cpm-cpmem038e-platform-import-warning.png)
+- [19 cpm install complete](proof/19-cpm-install-complete.png)
+- [20 pvwa login page](proof/20-pvwa-login-page.png)
+- [21 pvwa signed in account view](proof/21-pvwa-signed-in-account-view.png)
+- [22 platforms loaded](proof/22-platforms-loaded.png)
+- [23 psm install complete](proof/23-psm-install-complete.png)
+- [24 svc test created](proof/24-svc-test-created.png)
+- [25 safe lab admins created](proof/25-safe-lab-admins-created.png)
+- [26 svc test onboarded](proof/26-svc-test-onboarded.png)
+- [28 mgr1 approver added](proof/28-mgr1-approver-added.png)
+- [29 master policy dual control active](proof/29-master-policy-dual-control-active.png)
+- [30 jdoe request form](proof/30-jdoe-request-form.png)
+- [31 request sent pending](proof/31-request-sent-pending.png)
+- [32 mgr1 incoming request](proof/32-mgr1-incoming-request.png)
+- [33 request approved](proof/33-request-approved.png)
+- [34 jdoe confirmed audit trail](proof/34-jdoe-confirmed-audit-trail.png)
+- [36 cpm change failed 2245](proof/36-cpm-change-failed-2245.png)
+- [37 min password age 0 gpupdate](proof/37-min-password-age-0-gpupdate.png)
+- [38 cpm change dialog](proof/38-cpm-change-dialog.png)
+- [39 cpm rotation compliant](proof/39-cpm-rotation-compliant.png)
+- [40 psm service running](proof/40-psm-service-running.png)
+- [41 ticket1002 request sent](proof/41-ticket1002-request-sent.png)
+- [42 mgr1 incoming ticket1002](proof/42-mgr1-incoming-ticket1002.png)
+- [43 mgr1 approve reason](proof/43-mgr1-approve-reason.png)
+- [44 ticket1002 confirmed](proof/44-ticket1002-confirmed.png)
+- [45 jdoe confirmed connect gray](proof/45-jdoe-confirmed-connect-gray.png)
+- [46 master policy psm monitoring active](proof/46-master-policy-psm-monitoring-active.png)
+- [47 jdoe connect enabled](proof/47-jdoe-connect-enabled.png)
+- [48 psm server address fixed](proof/48-psm-server-address-fixed.png)
+- [49 psm session being recorded](proof/49-psm-session-being-recorded.png)
+- [50 psm reached addc secure error](proof/50-psm-reached-addc-secure-error.png)
+- [51 psm session on addc](proof/51-psm-session-on-addc.png)
+- [52 psm session activity notepad](proof/52-psm-session-activity-notepad.png)
+- [53 psm activity window titles disconnect](proof/53-psm-activity-window-titles-disconnect.png)
+- [54 activity ticket1003 connect approval](proof/54-activity-ticket1003-connect-approval.png)
+- [55 activity psm connect window titles](proof/55-activity-psm-connect-window-titles.png)
+- [56 activity notepad psm disconnect](proof/56-activity-notepad-psm-disconnect.png)
+- [57 remove jdoe menu](proof/57-remove-jdoe-menu.png)
+- [58 remove jdoe confirm](proof/58-remove-jdoe-confirm.png)
+- [59 jdoe removed from lab admins](proof/59-jdoe-removed-from-lab-admins.png)
+- [60 addc snapshot taken](proof/60-addc-snapshot-taken.png)
+- [61 vault snapshot taken](proof/61-vault-snapshot-taken.png)
+- [62 pvwa snapshot taken](proof/62-pvwa-snapshot-taken.png)
+- [63 cpm snapshot taken](proof/63-cpm-snapshot-taken.png)
+- [64 psm snapshot taken](proof/64-psm-snapshot-taken.png)
