@@ -195,3 +195,7 @@ All originals, unedited. 27 and 35 are left out because they show plaintext pass
 - [62 pvwa snapshot taken](proof/62-pvwa-snapshot-taken.png)
 - [63 cpm snapshot taken](proof/63-cpm-snapshot-taken.png)
 - [64 psm snapshot taken](proof/64-psm-snapshot-taken.png)
+
+## Stop there
+
+Entra, AD lifecycle, Okta, and CyberKy/LLDAP are other sittings / other repos. This package covers CyberArk PAM only.
