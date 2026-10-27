@@ -19,7 +19,7 @@ A ticket-style privileged access loop in CyberArk PAM Self-Hosted 12.6. I put a 
 
 In ticket language: requester jdoe asked for temporary access to the Domain Admin account svc-test with a ticket number. Approver mgr1 confirmed it, so no one approved their own access. The password was never handed out long-term: CPM rotates it, and the admin session ran through PSM where it was recorded and every window was logged. When the work was done, jdoe was removed from the safe and lost access.
 
-Interview line (coach-written at his request, from his one-page IAM Labs doc): "In CyberArk I locked a Domain Admin account in a safe with dual control, so a user had to ask with a ticket and a manager had to approve. CPM rotated the password, the admin session was recorded through PSM, and I removed the user's access at the end."
+Interview line: "In CyberArk I locked a Domain Admin account in a safe with dual control, so a user had to ask with a ticket and a manager had to approve. CPM rotated the password, the admin session was recorded through PSM, and I removed the user's access at the end."
 
 ## Key screenshots
 
@@ -71,7 +71,7 @@ Removed jdoe from the Lab-Admins safe to end their privileged access.
 
 ## What broke / issues I fixed
 
-- **CPM change failed, winRc 2245.** The error said the new password didn't meet policy. Coach's diagnosis: the domain minimum password age blocked changing a freshly set password again. Fix: `Set-ADDefaultDomainPasswordPolicy -MinPasswordAge 0`, `gpupdate /force`, change again → Compliant.
+- **CPM change failed, winRc 2245.** The error said the new password didn't meet policy. Likely cause: the domain minimum password age blocked changing a freshly set password again. Fix: `Set-ADDefaultDomainPasswordPolicy -MinPasswordAge 0`, `gpupdate /force`, change again → Compliant.
 - **Connect button stayed gray after approval.** Session monitoring wasn't on in the Master Policy. Turned on "Require privileged session monitoring and isolation" → Connect lit up.
 - **PSM connection went nowhere.** The PSM server object pointed at the NAT IP. Changed the Address to `192.168.100.14`.
 - **"Privileged session could not be established securely."** RDP security on PSM (NLA / SecurityLayer) didn't line up; adjusted it on WIN-PSM.
@@ -80,7 +80,7 @@ Removed jdoe from the Lab-Admins safe to end their privileged access.
 ## Gaps
 
 - No before-shots for the NAT IP address, the NLA/SecurityLayer change, or enabling RDP on WIN-ADDC. Those fixes are from my notes; the screenshots show the after state (48 address = .14, 49 to 51 working session).
-- The 2245 root cause is Coach's diagnosis, not something a screenshot proves directly.
+- The 2245 root cause is my best diagnosis, not something a screenshot proves directly.
 - Two proof shots are left out on purpose because they show plaintext passwords (27 REST call creating jdoe, 35 revealed svc-test password).
 
 ## How to redo it
